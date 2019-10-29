@@ -3,5 +3,5 @@ parameters {
 }
 
 model {
-
+      chance_in_5 ~ uniform(0,5);
 }
