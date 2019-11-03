@@ -12,8 +12,6 @@ stan_program_path = sys.argv[1]
 if len(sys.argv) > 2:
     parameter_to_show = sys.argv[2]
 
-
-
 print("Running Stan program",stan_program_path)
 print("Histogram of", parameter_to_show);
 
@@ -22,11 +20,17 @@ stan_program.compile()
 
 #runs transformed data{}
 #fit = stan_program.sample(csv_basename='./output',fixed_param=True,sampling_iters=0)
+
 fit = stan_program.sample(csv_basename='./output')
+
 console_output = open('output-1.txt');
-print(console_output.read());
-#fit.get_drawset(params=[parameter_to_show]).hist(bins=50)
-if len(parameter_to_show)>0 :
-        fit.get_drawset(params=[parameter_to_show]).hist(bins=50,range=(0,5))
+print(console_output.read()); #good for catching errors and print statements in Stan prog
+
+print(fit.summary()) #summary stats for fit
+#print(fit.diagnose()) #look for problems
+
+bin_count = 10
+if len(parameter_to_show)>0 :  # plot parameter if specified
+        fit.get_drawset(params=[parameter_to_show]).hist(bins=bin_count)
         plt.show()
         
