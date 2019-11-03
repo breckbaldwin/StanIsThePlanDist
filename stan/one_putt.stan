@@ -1,9 +1,16 @@
-parameters {
-	   real<lower=0, upper=5> chance_in_5;
+data {
+   real distance_of_putt;
 }
 
+parameters {
+   real<lower=0, upper=5> chance_in_5;
+}
+
+transformed parameters {
+   real chance_in_1 = chance_in_5/5;
+}
 model {
-  real chance_in_1 = chance_in_5/5;
+ 
   //chance_in_1 ~ uniform(0,1);
   //  1 ~ bernoulli(chance_in_1);
   
