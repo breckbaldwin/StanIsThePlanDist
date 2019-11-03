@@ -22,6 +22,7 @@ Understand the execution environment
 ## Why Bayesian Modeling? 
 
 ![Average Joes](img/airforce-dimensions.png) 
+<img from End of Average> 
 
 Lt. Gilbert S. Daniels. Data from 4,063 pilots on 10 dimensions. 
 Average was defined to be the 30% interval around the mean value, e.g.,5'7" to 5'11" height.
@@ -98,8 +99,8 @@ See
 ```{stan output.var=theAnswer.stan}
 
 parameters {
- real<lower=0,upper=50> min_value;//starts life drawn from a uniform dist
-  real<lower=50,upper=1000>  max_value;//starts life drawn from a uniform dist
+ real<lower=0,upper=100> min_value;//starts life drawn from a uniform dist
+  real<lower=0,upper=100>  max_value;//starts life drawn from a uniform dist
 }
 
 model {

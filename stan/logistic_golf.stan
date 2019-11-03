@@ -22,6 +22,6 @@ model {
 }
 
 generated quantities {
-  real prob_putt_sinks;
-  prob_putt_sinks = 1/(1 + exp(- (a_intercept +  b_slope * distance_of_putt)));
+  real chance_in_5;
+  chance_in_5 = 1/(1 + exp(- (a_intercept +  b_slope * distance_of_putt))) * 5;
 }
