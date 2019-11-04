@@ -31,6 +31,6 @@ print(fit.summary()) #summary stats for fit
 
 bin_count = 10
 if len(parameter_to_show)>0 :  # plot parameter if specified
-        fit.get_drawset(params=[parameter_to_show]).hist(bins=bin_count)
+        fit.get_drawset(params=[parameter_to_show]).hist(bins=bin_count,range=(0,5))
         plt.show()
         

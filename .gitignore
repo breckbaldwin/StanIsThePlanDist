@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.o
+*.hpp
+*~
+*#
+*-[0123456789].txt
+*-[0123456789].csv
+.#*

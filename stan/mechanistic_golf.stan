@@ -28,14 +28,13 @@ model {
 }
 
 generated quantities {
-  real sigma_degrees;
+  real sigma_degrees = (180/pi())*sigma;
   real pred_ch_in_5;
-  real chance_in_1_for_dist[J];
+  //real chance_in_1_for_dist[J];
   real threshold_angle_for_distance = asin((R-r)/distance_of_putt);
-  sigma_degrees = (180/pi())*sigma;
   pred_ch_in_5 = (2*Phi(threshold_angle_for_distance/sigma) - 1) * 5;
-  for (i in 1:J) {
-    threshold_angle_for_distance = asin((R-r)/i);
-    chance_in_1_for_dist[i] = (2*Phi(threshold_angle_for_distance/sigma) - 1);
-  }
+  //for (i in 1:J) { //delete for slide
+  // threshold_angle_for_distance = asin((R-r)/i);
+  //  chance_in_1_for_dist[i] = (2*Phi(threshold_angle_for_distance/sigma) - 1);
+  //}
 }
