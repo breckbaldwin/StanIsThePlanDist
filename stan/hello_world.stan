@@ -1,9 +1,9 @@
-//python helloworld.py stan/hello_world.stan
+//python helloworld.py
 //cmdstan
 
 functions {
   void helloWorld() {
-    print("Functions{} hello world! from a function in the functions block");
+    print("Functions{} hello world!");
   }
 }
 
@@ -17,23 +17,28 @@ transformed data {
   print("transformed data{} hello have access to count_data=",count_data,
 	", continuous_data=",continuous_data);
   print("transformed data{} created new variable with value, tran_count=",tran_count);
-  print("transformed data{} data/transformed data is evaluated once");
-  helloWorld();
+  helloWorld(); 
 } 
 
 parameters {//no statements
-  real <lower=0,upper=20> estimate_me; //<lower=,upper=> not required
+  real estimate_me; //
 }
 
 transformed parameters {
   real modified_estimate_me = estimate_me/count_data;
-  print("transformed parameters {} Hello from transformed parameters, modified_estimate_me=",modified_estimate_me);
-  print("transformed parameters {} is called once per leapfrog step, as is paramaters{}");
+  print("transformed parameters {} Hello, modified_estimate_me=",modified_estimate_me);
+  print("transformed parameters {} is called once per leapfrog step, as is parameters{}");
 } 
 
 model { 
-  print("model{} Hello from the model block every leap frog step");
+  print("model{} Hello every leap frog step");
+  print("model{} initial target()=",target(),
+	", exp(target()=",exp(target()),
+	", estimate_me=",estimate_me);
   estimate_me ~ normal(count_data,continuous_data);
+  print("model{} after increment target()=",target(),
+	", exp(target()=",exp(target()),
+	", estimate_me=",estimate_me);
 }
 
 generated quantities {
