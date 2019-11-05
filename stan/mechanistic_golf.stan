@@ -16,23 +16,26 @@ transformed data {
 }
 
 parameters {
-  real<lower=0> sigma;
+  real<lower=0> sigma_error_in_radians;
 }
 
 model {
   for (i in 1:J) {
-    real prob = 2*Phi(threshold_angle[i]/sigma) - 1;
+    real prob = abs(threshold_angle[i]/sigma_error_in_radians)/2;
+    //real prob = 2*Phi(threshold_angle[i]/sigma) - 1;
     //print("i=",i," n[i]=",n[i]," y[i]=",y[i]," x[i]",x[i]," threshold_angle=",threshold_angle[i]," prob=",prob);
     y[i] ~ binomial(n[i], prob);
   }
 }
 
 generated quantities {
-  real sigma_degrees = (180/pi())*sigma;
+  real sigma_error_in_degrees = (180/pi())*sigma_error_in_radians;
   real pred_ch_in_5;
   //real chance_in_1_for_dist[J];
   real threshold_angle_for_distance = asin((R-r)/distance_of_putt);
-  pred_ch_in_5 = (2*Phi(threshold_angle_for_distance/sigma) - 1) * 5;
+  pred_ch_in_5 = abs(threshold_angle_for_distance/sigma_error_in_radians)/2 * 5;
+  //pred_ch_in_5 = (2*Phi(threshold_angle_for_distance/sigma_error_in_radians) - 1) * 5;
+  //pred_ch_in_5 = (2*Phi(threshold_angle_for_distance/sigma) - 1) * 5;
   //for (i in 1:J) { //delete for slide
   // threshold_angle_for_distance = asin((R-r)/i);
   //  chance_in_1_for_dist[i] = (2*Phi(threshold_angle_for_distance/sigma) - 1);
