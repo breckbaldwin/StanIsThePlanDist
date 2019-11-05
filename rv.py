@@ -7,10 +7,13 @@ import seaborn as sns
 import fileinput
 import sys
 
-parameter_to_show = "";
+parameter_to_show = ""
+visualization_to_show= 'hist'
 stan_program_path = sys.argv[1]
 if len(sys.argv) > 2:
     parameter_to_show = sys.argv[2]
+if len(sys.argv) > 3:
+    visualization_to_show = sys.argv[3]
 
 print("Running Stan program",stan_program_path)
 print("Histogram of", parameter_to_show);
@@ -29,8 +32,22 @@ print(console_output.read()); #good for catching errors and print statements in 
 print(fit.summary()) #summary stats for fit
 #print(fit.diagnose()) #look for problems
 
+if  visualization_to_show == 'cat' :
+    draws = fit.get_drawset([parameter_to_show])
+    list_draws = draws[parameter_to_show].values.tolist()
+    fig, ax = plt.subplots()
+    color = ['c','b','y','g']
+    ends = [1000,2000,3000,4000]
+    start = 0
+    for i in range(4) :
+        x = list_draws[start:ends[i]]
+        y = range(1000)
+        ax.plot(x,y,color[i])
+        start = ends[i]
+    plt.show()
+
 bin_count = 10
-if len(parameter_to_show)>0 :  # plot parameter if specified
+if visualization_to_show == 'hist' :  # plot parameter if specified
         fit.get_drawset(params=[parameter_to_show]).hist(bins=bin_count,range=(0,5))
         plt.show()
         
