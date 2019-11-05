@@ -49,7 +49,7 @@ if  visualization_to_show == 'cat' :
         start = ends[i]
     plt.show()
 
-bin_count = 10
+bin_count = 50
 if visualization_to_show == 'hist' :  # plot parameter if specified
         fit.get_drawset(params=[parameter_to_show]).hist(bins=bin_count,range=(0,5))
         plt.show()

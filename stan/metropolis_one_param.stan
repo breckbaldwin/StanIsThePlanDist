@@ -1,13 +1,11 @@
-transformed data {
-  int num_samples=250;
-}
+
 generated quantities {
-  real chance_in_5[num_samples];
+  real chance_in_5[250];
   real sigma_step_size = .5;
-  real my_target[num_samples];
+  real my_target[250];
   chance_in_5[1] = 2.5;
   my_target[1] = log(chance_in_5[1]);
-  for (i in 2:num_samples) {
+  for (i in 2:250) {
     real proposal = chance_in_5[i-1] + normal_rng(0,sigma_step_size); 
     real chance_in_1;
     real random_value = uniform_rng(0,1);
