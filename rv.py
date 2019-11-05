@@ -32,6 +32,9 @@ print(console_output.read()); #good for catching errors and print statements in 
 print(fit.summary()) #summary stats for fit
 #print(fit.diagnose()) #look for problems
 
+if parameter_to_show == '' :
+    sys.exit()
+
 if  visualization_to_show == 'cat' :
     draws = fit.get_drawset([parameter_to_show])
     list_draws = draws[parameter_to_show].values.tolist()
